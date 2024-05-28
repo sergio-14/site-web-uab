@@ -1,0 +1,23 @@
+
+.navhome{
+    background: rgb(11, 6, 58);
+}
+
+/* interaccion social */
+.containersocial{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 43px; 
+}
+.fondosocial{
+    width:600px;
+    height:500px ;
+    opacity: 30%;
+}
+@media (max-width: 767px) {
+    .fondosocial{
+        width: 300px;
+        height:400px ;
+    }
+}
