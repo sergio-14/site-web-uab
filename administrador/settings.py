@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'panel',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 JAZZMIN_SETTINGS = {
@@ -201,7 +203,25 @@ STATICFILES_DIRS = [
 ]
 
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#CRISPY
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# Configuración para enviar correos electrónicos
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Coloca tu servidor SMTP
+EMAIL_PORT = 587  # Puerto de SMTP
+EMAIL_USE_TLS = True  # Usa TLS para cifrar la conexión
+EMAIL_HOST_USER = 'shuerkk.14@gmail.com'  # Tu dirección de correo electrónico
+EMAIL_HOST_PASSWORD = 'kikioymvcwcumkwz'  # Tu contraseña de correo electrónico

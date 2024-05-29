@@ -1,0 +1,12 @@
+{% extends 'Principal.html' %} {% load crispy_forms_tags %} {% block content %}
+<h1>Editar Persona de Usuario</h1>
+<div class="container mt-5">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %} {{ formE|crispy }}
+    <br />
+    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+    <a href="{% url 'detalle_persona' %}" class="btn btn-danger">Cancelar Cambio</a>
+  </form>
+</div>
+<br />
+{% endblock %}

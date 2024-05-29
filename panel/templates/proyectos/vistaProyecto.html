@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+<br>
+<br>
+<div class="container">
+  <div class="card-body">
+    <h4 class="card-title">LISTA DE MATERIAS</h4> 
+    <br>
+    <br>
+    <div class="table-responsive">
+        <table class="table">
+            <thead >
+                <tr id="yuu">
+                    <th scope="col">TITULO</th>
+                    <th scope="col">FECHA</th>
+                    <th scope="col">DESCRIPCION</th>
+                    <th scope="col">DOCUMENTO</th>
+                    <th scope="col">POSTULANTE</th>
+                    <th scope="col">ESTADO</th>
+                    <th scope="col">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mattt in tform %}
+                <tr id="tbl">
+                    <td data-label="Materia">{{ mattt.Titulo }}</td>
+                    <td data-label="Materia">{{ mattt.Fecha }}</td>
+                    <td data-label="Materia">{{ mattt.Descripcion }}</td>
+                    <td data-label="Documento Proyecto"><i class="bi bi-file-earmark-pdf-fill"></i><a href="{{ mattt.Documentacion.url }}" class="list-group-item list-group-item-action">Documento</a></td>
+                    <td data-label="Materia">{{ mattt.Persona }}</td>
+                    <td data-label="Materia">{{ mattt.Estado }}</td>
+                    <td data-label="Acciones">
+                       
+                        {% comment %} <a name="" id="" class="btn btn-danger" href="{% url 'eliminarT' mattt.IdProyt %}" {% endcomment %}
+                         role="button" onclick="return ConfirmDelete()">Eliminar</a>
+                    </td>
+                <tr>
+                {% endfor %}
+                {% if messages %}
+                <tr>
+                    <td colspan="7">
+                        <ul>
+                            {% for message in messages %}
+                            <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endif %}
+                   
+            </tbody>
+        </table>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}
+
+

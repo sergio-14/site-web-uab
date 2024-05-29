@@ -1,0 +1,132 @@
+{% extends 'Principal.html' %} {% block content %}
+<style>
+  /* Estilos personalizados */
+  .rounded-img {
+    border-radius: 12px;
+    width: 300px;
+    height: 300px;
+    box-shadow: 0px 14px 80px rgba(13, 14, 36, 0.63);
+  }
+
+  .centered-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transform: translateX(-20%);
+  }
+  @media screen and (max-width: 768px) {
+    .centered-img {
+      justify-content: center;
+      align-items: center;
+
+      transform: translateY(-10%);
+    }
+  }
+  @media (max-width: 768px) {
+    #aaa {
+      white-space: pre-wrap; /* Para manejar el texto largo en dispositivos móviles */
+    }
+  }
+
+  .narrow-card {
+    max-width: 900px; /* Establecer el ancho máximo del card */
+    margin: 0 auto; /* Centrar el card horizontalmente */
+  }
+</style>
+<h1 class="text-center">VISTA FORMULARIO PRESENTACION DE PROYECTO</h1>
+<br />
+{% if proyectos %}
+<div class="container mt-3">
+  {% for proyecto in proyectos %}
+  <div class="card narrow-card">
+    <div class="row no-gutters">
+      <!-- Foto en un lado -->
+      {% if proyecto.persona.imagen %}
+      <div class="col-md-3 col-lg-3 centered-img">
+        <img
+          src="{{ proyecto.persona.imagen.url }}"
+          class="card-img rounded-img"
+          alt="{{ proyecto.persona.user.username }}"
+        />
+      </div>
+      {% else %}
+      <!-- Manejar el caso en que la persona no tenga una imagen -->
+      <p>No hay imagen disponible</p>
+      {% endif %}
+      <!-- Contenido en el otro lado -->
+      <div class="col-md-7 col-lg-7">
+        <div class="card-body">
+          <!-- Texto con formato pre -->
+          <pre id="aaa">MODALIDAD OPTADA: {{ proyecto.categoria.titulo }}   {{ proyecto.fecha_creacion }}</pre>
+          <!-- Título -->
+          <h5 class="card-title">{{ proyecto.titulo }}</h5>
+          <!-- Descripción -->
+          <p class="card-text">Descriocion:<br>{{ proyecto.overview }}</p>
+          <div class="d-flex align-items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="26"
+              height="26"
+              fill="currentColor"
+              class="bi bi-file-earmark-person"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+              <path
+                d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2v9.255S12 12 8 12s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h5.5z"
+              />
+            </svg>
+            <a
+              href="{{ proyecto.documentacion.url }}"
+              class="list-group-item list-group-item-action"
+              >Ver Documento</a
+            >
+          </div>
+          <br>
+          <h5 class="card-title">Estado del Poryecto: {{proyecto.estado}}</h5>
+          <!-- Espacio de comentarios -->
+          <br />
+          <!-- Botón para ver documento -->
+          <h5 class="card-title text-center">Comentarios Retroalimentativos</h5>
+          {% for comentario in proyecto.commentario_set.all %}
+          <h6 class="card-title">
+            Corregido por: {{ comentario.user.username }} en
+            {{comentario.Fecha_post }}
+          </h6>
+          <p class="card-text">Comentario:<br />{{ comentario.comentari }}</p>
+          {% empty %}
+          <p class="card-text">No hay comentarios para este proyecto.</p>
+          {% endfor %}
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+  <br>
+  {% endfor %}
+</div>
+
+{% if proyectos.has_other_pages %}
+<div class="pagination">
+  <span class="step-links">
+    {% if proyectos.has_previous %}
+    <a class="page-link" href="?page=1">&laquo; Primero</a>
+    <a class="page-link" href="?page={{ proyectos.previous_page_number }}"
+      >Anterior</a
+    >
+    {% endif %}
+
+    <span class="current">
+      Página {{ proyectos.number }} de {{ proyectos.paginator.num_pages }}.
+    </span>
+
+    {% if proyectos.has_next %}
+    <a href="?page={{ proyectos.next_page_number }}">Siguiente</a>
+    <a href="?page={{ proyectos.paginator.num_pages }}">Último &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+{% endif %} {% else %}
+<p>No hay proyectos asociados a este usuario. Consulta en la administración.</p>
+{% endif %} {% endblock %}

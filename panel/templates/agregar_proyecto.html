@@ -1,0 +1,41 @@
+{% extends 'Principal.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+  <div class="container">
+    <h1 id="letr">Agregar Proyecto</h1>
+   <article>
+    <form id="pot" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form|crispy }}
+      {% comment %} {% for campo in form %}
+      
+        <label for="" class="form-label">{{ campo.label }}:</label>
+        <input 
+        type="{{ campo.field.widget.input_type }}"
+        class="form-control" 
+        name="{{ campo.name}}" 
+        id="pot" 
+        aria-describedby="helpId" 
+        placeholder="{{ campo.label }}"
+        value="{{ campo.value | default:'' }}"
+        />
+    
+      <div class="col-12 help-text">
+        {{campo.errors}}
+      </div>
+      {% endfor %}
+      <br>
+      <button type="submit">Guardar</button>
+      <br> {% endcomment %}
+      <br>
+      <a >
+        <input name="" id="boton1" class="btn btn-success " type="submit" value="Enviar Informacion">
+      </a>
+      <a name="" id="boton1" class="btn btn-primary " href="{% url 'dashboard' %}" role="button">Cancelar</a>
+    </form>
+    <br>
+   </article>
+  </div> 
+</div>
+{% endblock  %}
