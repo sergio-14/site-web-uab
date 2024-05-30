@@ -1,40 +1,6 @@
 {% extends 'Principal.html' %} {% block content %}
-<style>
-  /* Estilos personalizados */
-  .rounded-img {
-    border-radius: 12px;
-    width: 300px;
-    height: 300px;
-    box-shadow: 0px 14px 80px rgba(13, 14, 36, 0.63);
-  }
 
-  .centered-img {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    transform: translateX(-20%);
-  }
-  @media screen and (max-width: 768px) {
-    .centered-img {
-      justify-content: center;
-      align-items: center;
-
-      transform: translateY(-10%);
-    }
-  }
-  @media (max-width: 768px) {
-    #aaa {
-      white-space: pre-wrap; /* Para manejar el texto largo en dispositivos móviles */
-    }
-  }
-
-  .narrow-card {
-    max-width: 900px; /* Establecer el ancho máximo del card */
-    margin: 0 auto; /* Centrar el card horizontalmente */
-  }
-</style>
-<h1 class="text-center">VISTA FORMULARIO PRESENTACION DE PROYECTO</h1>
+<h1 class="text-center titulosgeneral">FORMULARIO PRESENTACION DE ALCANCE DE PERFIL DE PROYECTO</h1>
 <br />
 {% if proyectos %}
 <div class="container mt-3">
@@ -46,7 +12,7 @@
       <div class="col-md-3 col-lg-3 centered-img">
         <img
           src="{{ proyecto.persona.imagen.url }}"
-          class="card-img rounded-img"
+          class="card-img  imgperfil"
           alt="{{ proyecto.persona.user.username }}"
         />
       </div>
@@ -55,46 +21,44 @@
       <p>No hay imagen disponible</p>
       {% endif %}
       <!-- Contenido en el otro lado -->
-      <div class="col-md-7 col-lg-7">
+      <div class="col-md-7 col-lg-8">
         <div class="card-body">
           <!-- Texto con formato pre -->
-          <pre id="aaa">MODALIDAD OPTADA: {{ proyecto.categoria.titulo }}   {{ proyecto.fecha_creacion }}</pre>
+          <pre id="aaa">MODALIDAD OPTADA: {{ proyecto.categoria.titulo }}              {{ proyecto.fecha_creacion }}</pre>
           <!-- Título -->
-          <h5 class="card-title">{{ proyecto.titulo }}</h5>
+          <h5 class="card-title">Titulo: {{ proyecto.titulo }}</h5>
           <!-- Descripción -->
-          <p class="card-text">Descriocion:<br>{{ proyecto.overview }}</p>
-          <div class="d-flex align-items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="26"
-              height="26"
-              fill="currentColor"
-              class="bi bi-file-earmark-person"
-              viewBox="0 0 16 16"
-            >
-              <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-              <path
-                d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2v9.255S12 12 8 12s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h5.5z"
-              />
-            </svg>
-            <a
-              href="{{ proyecto.documentacion.url }}"
-              class="list-group-item list-group-item-action"
-              >Ver Documento</a
-            >
+          <p class="card-text">Descripción:<br>{{ proyecto.overview }}</p>
+          <div class="container text-center">
+            <div class="row">
+              <div class="col contdoc">
+                <div class="d-flex align-items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-earmark-richtext-fill" viewBox="0 0 16 16">
+                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M7 6.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047l1.888.974V9.5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V9s1.54-1.274 1.639-1.208M5 11h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1m0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1"/>
+                  </svg>
+                  <a
+                    href="{{ proyecto.documentacion.url }}"
+                    class="list-group-item list-group-item-action"
+                    >Documento</a
+                  >
+                </div>
+              </div>
+              <div class="col">
+                <h5 class="card-state">Estado Revisión: {{proyecto.estado}}</h5>
+              </div>
+            </div> 
           </div>
           <br>
-          <h5 class="card-title">Estado del Poryecto: {{proyecto.estado}}</h5>
           <!-- Espacio de comentarios -->
           <br />
           <!-- Botón para ver documento -->
           <h5 class="card-title text-center">Comentarios Retroalimentativos</h5>
           {% for comentario in proyecto.commentario_set.all %}
-          <h6 class="card-title">
+          <h6 class="card-state">
             Corregido por: {{ comentario.user.username }} en
             {{comentario.Fecha_post }}
           </h6>
-          <p class="card-text">Comentario:<br />{{ comentario.comentari }}</p>
+          <p class="card-text">Comentario: {{ comentario.comentari }}</p>
           {% empty %}
           <p class="card-text">No hay comentarios para este proyecto.</p>
           {% endfor %}

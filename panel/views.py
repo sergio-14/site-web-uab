@@ -158,18 +158,31 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator   
 from django.core.exceptions import PermissionDenied  
-# Define la función de verificación de permisos aquí
+
+
+# Define la función de verificación de permisos aquí para usuarios
 def usuario_en_grupo(user, grupoestudiantes):
-    grupo = Group.objects.get(name=grupoestudiantes)
+    try:
+        grupo = Group.objects.get(name=grupoestudiantes)
+    except Group.DoesNotExist:
+        raise PermissionDenied(f"El grupo '{grupoestudiantes}' no existe.")
+    
     if grupo in user.groups.all():
         return True
-    raise PermissionDenied
-    #return grupo in user.groups.all()
+    else:
+        raise PermissionDenied
+    
+def handle_permission_denied(request, exception):
+    return render(request, '403.html', status=403)
+
+
+
+    
 
 @method_decorator(user_passes_test(lambda u: usuario_en_grupo(u, 'grupoestudiantes')), name='dispatch')
 class ProyectosParaAprobar(View):
     def get(self, request):
-        proyectos = Proyecto.objects.filter(estado='Por Aprobar')
+        proyectos = Proyecto.objects.filter(estado='Pendiente')
         proyectos_con_formulario = {proyecto: CommentForm() for proyecto in proyectos}
         
         context = {
@@ -199,7 +212,7 @@ class ProyectosParaAprobar(View):
 class AprobarProyecto(View):
     def post(self, request, proyecto_id):
         proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
-        proyecto.estado = 'Proyecto Aprobado'
+        proyecto.estado = 'Aprobado'
         proyecto.save()
         messages.success(request, '¡Proyecto aprobado exitosamente!')
         return HttpResponseRedirect(reverse('ProyectosParaAprobar'))
@@ -207,7 +220,7 @@ class AprobarProyecto(View):
 class RechazarProyecto(View):
     def post(self, request, proyecto_id):
         proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
-        proyecto.estado = 'Proyecto Rechazado'
+        proyecto.estado = 'Rechazado'
         proyecto.save()
         messages.error(request, '¡Proyecto rechazado!')
         return HttpResponseRedirect(reverse('ProyectosParaAprobar'))

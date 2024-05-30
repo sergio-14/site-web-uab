@@ -1,4 +1,7 @@
 /********** Template CSS **********/
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 :root {
     --primary: #ffddaf;
     --secondary: #191C24;
@@ -44,7 +47,7 @@
 }
 
 #conttt{
-    background-color: #cfd8df;
+    background-color: #ececec;
 }
 
 /*** Spinner ***/
@@ -61,6 +64,98 @@
     opacity: 1;
 }
 
+.card-title{
+    
+    font-size: 20px;
+    color: #042025;
+    font-family:"Anton";
+    font-style: normal;
+    padding-bottom: 4px;
+}
+.card-text{
+    font-weight: 100;
+    font-size: 15px;
+    color: #0a4049;
+    font-family:"Anton";
+    font-style: normal;
+    margin-bottom: 23px;
+}
+.card-name{
+    font-weight: 100;
+    font-size: 18px;
+    color: #0a4049;
+    font-family:"Anton";
+    font-style: normal;
+    margin-bottom: 10px;
+}
+.card-state{
+    font-weight: 100;
+    font-size: 15px;
+    color: #d47216;
+    font-family:"Anton";
+    font-style: normal;
+    text-align: end;
+    
+}
+.list-group-item-action{
+    font-weight: 100;
+    font-size: 20px;
+    color: #05262c;
+    font-family:"Anton";
+    font-style: normal;
+    text-align: left;
+    padding: 5px;
+
+}
+.titulosgeneral{
+    font-family:"Anton";
+
+}
+.contdoc{
+    border-radius: 5px;
+    background: #ebeaea;
+    box-shadow:  6px 6px 5px #a7a6a6,
+             -6px -6px 5px #ffffff;
+}
+.centered-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transform: translateX(-20%);
+  }
+  @media screen and (max-width: 768px) {
+    .narrow-card{
+        padding-top: 30px;
+        background:#ececec;
+        border: 1px solid rgba(255, 255, 255, 0)
+    }
+    .centered-img {
+      justify-content: center;
+      align-items: center;
+
+      transform: translateY(-25%);
+    }
+  }
+  @media (max-width: 768px) {
+    #aaa {
+      white-space: pre-wrap; /* Para manejar el texto largo en dispositivos móviles */
+    }
+  }
+
+  #aaa{
+    font-weight: 400;
+    font-size: 15px;
+    color: #757575;
+    font-family:"Anton";
+    font-style: normal;
+
+  }
+
+  .narrow-card {
+    max-width: 900px; /* Establecer el ancho máximo del card */
+    margin: 0 auto; /* Centrar el card horizontalmente */
+  }
 
 /*** Button ***/
 .btn {
@@ -147,6 +242,66 @@
         width: 100%;
         margin-left: 0;
     }
+}
+
+.imgperfil{
+    border-radius: 12px;
+    width: 300px;
+    height: 300px;
+    border-radius: 18px;
+    background: #f0f0f0;
+    box-shadow:  9px 9px 9px #a6a6a6,
+             -9px -9px 9px #ffffff;
+}
+
+
+
+.comentari-field {
+    width: 800px;
+    height: 80px; /* Altura fija */
+    overflow: auto; /* Agregar barra de desplazamiento si el contenido es más grande que el contenedor */
+    resize: vertical; /* Permitir redimensionar verticalmente */
+    word-wrap: break-word; /* Permitir que las palabras largas se envuelvan automáticamente */
+    border: 1px solid #05262c;
+    color:#05262c;
+}
+@media (max-width: 767px) {
+    .imgperfil{
+        width: 250px;
+        height: 250px;
+    
+    }
+    .comentari-field{
+        width: 250px;
+    }
+    .container{
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+.contdanger{
+    border-radius: 10px;
+    background: #e41b1b;
+    box-shadow:  5px 5px 6px #5b0b0b,
+             -5px -5px 6px #cfc9c9;
+}
+.contsuccess{
+    border-radius: 10px;
+    background: #135e20;
+    box-shadow:  5px 5px 6px #02552a,
+             -5px -5px 6px #cfc9c9;
+}
+.no-gutters{
+    border-radius: 18px;
+    background: #f0f0f0;
+    box-shadow:  9px 9px 9px #a6a6a6,
+             -9px -9px 9px #ffffff;
+}
+.contrevision{
+    border-radius: 18px;
+    background: #f0f0f0;
+    box-shadow:  9px 9px 9px #a6a6a6,
+             -9px -9px 9px #ffffff;
 }
 
 

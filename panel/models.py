@@ -25,9 +25,9 @@ class Persona(models.Model):
 
 class Proyecto(models.Model):
     ESTADO_CHOICES = (
-        ('Por Aprobar', 'Pendiente'),
-        ('Proyecto Aprobado', 'Aprobado'),
-        ('Proyecto Rechazado', 'Rechazado'),
+        ('Pendiente', 'Pendiente'),
+        ('Aprobado', 'Aprobado'),
+        ('Rechazado', 'Rechazado'),
     )
     titulo = models.CharField(max_length=150, verbose_name='Titulo')
     slug = models.SlugField(unique=True)

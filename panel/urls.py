@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import handle_permission_denied
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -28,3 +29,4 @@ urlpatterns = [
     #mensajes correo
     path('enviar-mensaje/', views.enviar_mensaje, name='enviar_mensaje'),
 ]
+handler403 = handle_permission_denied

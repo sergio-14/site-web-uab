@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-=6bb+lawul(t)#ifv-4cp62ol)$2(1j*@c-*dr(hr%v-bi0fw1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -56,6 +56,13 @@ JAZZMIN_SETTINGS = {
 
     # CSS classes that are applied to the logo above
     "site_logo_classes": "img-circle",
+    'LANGUAGE_CODE': 'es',
+    "topmenu_links": [
+
+        # Url that gets reversed (Permissions can be added)
+        {"name": "Panel Interactivo",  "url": "dashboard", "permissions": ["auth.view_user"]},
+        # App with dropdown menu to all its models pages (Permissions checked against models)
+    ],
 
     #############
     # Side Menu #
@@ -135,7 +142,7 @@ ROOT_URLCONF = 'administrador.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS':  [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -140,7 +140,7 @@
 /* Consulta de medios para dispositivos móviles */
 @media only screen and (max-width: 600px) {
     #imgf {
-        max-width: 70%; /* Cambia el ancho máximo al 100% para dispositivos móviles */
+        max-width: 70%;
         
     }
 }
