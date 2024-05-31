@@ -28,5 +28,9 @@ urlpatterns = [
     
     #mensajes correo
     path('enviar-mensaje/', views.enviar_mensaje, name='enviar_mensaje'),
+    
+    
+    #proyectos de interacion social
+    
 ]
 handler403 = handle_permission_denied

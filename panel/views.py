@@ -11,9 +11,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.text import slugify
 from django.core.paginator import Paginator
 from django.contrib import messages
-from .models import Proyecto, Commentario, Persona
+from .models import Proyecto, Commentario, Persona, T_Proyectos, T_Gestion, T_Semestre
 from panel.models import Proyecto
-
 from django.contrib.auth.models import User
 
 from django.views.generic import View
@@ -30,8 +29,33 @@ def home(request):
 def hometrabajos(request):
     return render(request, 'homesocial/hometrabajos.html')
 
+
+#poryectos interacion social
 def repoin(request):
-    return render(request, 'homesocial/repoin.html')
+    t_gestion_id = request.GET.get('T_Gestion')
+    t_semestre_id = request.GET.get('T_Semestre')
+    
+    listaproyectos = T_Proyectos.objects.all()
+    
+    if t_gestion_id:
+        listaproyectos = listaproyectos.filter(T_Gestion_id=t_gestion_id)
+    
+    if t_semestre_id:
+        listaproyectos = listaproyectos.filter(T_Materia__T_Semestre_id=t_semestre_id)
+    
+    listaproyectos = listaproyectos.order_by('Id_Proyect')  # Ordenar para garantizar el primer proyecto
+    primer_proyecto = listaproyectos.first() if listaproyectos.exists() else None
+    
+    context = {
+        'primer_proyecto': primer_proyecto,
+        't_gestiones': T_Gestion.objects.all(),
+        't_semestres': T_Semestre.objects.all(),
+        'listaproyectos': listaproyectos,
+        'selected_t_gestion': t_gestion_id,
+        'selected_t_semestre': t_semestre_id,
+    }
+    return render(request, 'homesocial/repoin.html', context)
+
 
 def repoti(request):
     return render(request, 'homesocial/repoti.html')
@@ -224,3 +248,5 @@ class RechazarProyecto(View):
         proyecto.save()
         messages.error(request, '¡Proyecto rechazado!')
         return HttpResponseRedirect(reverse('ProyectosParaAprobar'))
+
+

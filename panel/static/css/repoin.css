@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+.anton-regular {
+    font-family: "Anton", sans-serif;
+    font-weight: 50;
+    font-style: normal;
+}
+
+.card-text{
+    font-weight: 100;
+    font-size: 18px;
+    color: #0a4049;
+    font-family:"Anton";
+    font-style: normal;
+    margin-bottom: 13px;
+}
+
+.title{
+    font-weight: 100;
+    font-size: 30px;
+    color: #083741;
+    font-family:"Anton";
+    font-style: normal;
+    margin-bottom: 13px;
+}
+
+.contenedorbody{
+    background: #f0f0f0;
+}
+
+.stilo{
+    font-family: "Anton";
+    color: #0a4049;
+    border-radius: 10px;
+    background: #f0f0f0;
+    box-shadow:  9px 9px 9px #a6a6a6,
+             -9px -9px 9px #ffffff;
+}
+
+.contproyectos{
+    padding-left: 40px;
+    padding-right: 40px;
+    justify-content: center;
+
+}
+
+.parrafos {
+    width: 300px; 
+    overflow: hidden; 
+}
+  
+.textto {
+    color: #324c50;
+    word-wrap: break-word; 
+    white-space: normal; 
+}
+.textdate{
+    color: #ac4616;
+
+}
+
+#imgsocial{
+    height: 400px;
+    width:550px ;
+    border-radius: 25px;
+}
+#imgdocente{
+    height:70px;
+    border-radius: 100%;
+    width:70px;
+    padding: 2px;
+    filter: drop-shadow(rgb(1, 29, 37));
+    background: #4b2309;
+    box-shadow:  9px 9px 9px #a6a6a6,
+             -9px -9px 9px #ffffff;
+}

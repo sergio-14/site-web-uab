@@ -1,0 +1,57 @@
+<!-- templates/proyectos/lista_proyectos.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Proyectos</title>
+</head>
+<body>
+    <h1>Lista de Proyectos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Finalización</th>
+                <th>Descripción</th>
+                <th>Documentación</th>
+                <th>Imagen</th>
+                <th>Fase del Proyecto</th>
+                <th>Gestión</th>
+                <th>Tipo de Proyecto</th>
+                <th>Materia</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proyecto in listaproyectos %}
+            <tr>
+                <td>{{ proyecto.Id_Proyect }}</td>
+                <td>{{ proyecto.S_Titulo }}</td>
+                <td>{{ proyecto.Fecha_Inicio }}</td>
+                <td>{{ proyecto.Fecha_Finalizacion }}</td>
+                <td>{{ proyecto.S_Descripcion }}</td>
+                <td>
+                    {% if proyecto.S_Documentacion %}
+                        <a href="{{ proyecto.S_Documentacion.url }}">Ver Documentación</a>
+                    {% else %}
+                        No disponible
+                    {% endif %}
+                </td>
+                <td>
+                    {% if proyecto.S_Imagen %}
+                        <img src="{{ proyecto.S_Imagen.url }}" alt="Imagen del Proyecto" width="100">
+                    {% else %}
+                        No disponible
+                    {% endif %}
+                </td>
+                <td>{{ proyecto.T_Fase_proyecto }}</td>
+                <td>{{ proyecto.T_Gestion }}</td>
+                <td>{{ proyecto.T_Tipo_Proyecto }}</td>
+                <td>{{ proyecto.T_Materia }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
