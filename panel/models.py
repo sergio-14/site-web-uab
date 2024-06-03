@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import date
 from django.conf import settings
 
 #categorias modalidad
@@ -61,6 +61,10 @@ class Commentario(models.Model):
             return self.comentari[:len_title] + '...'
         return self.comentari
     
+    
+    
+    
+    
 ########  espacio de poryectos de interaccion social docentes  ##########
 
 #tipo de proyecto de interaccion social docentes
@@ -117,18 +121,28 @@ class T_Proyectos(models.Model):
     T_Gestion = models.ForeignKey(T_Gestion, on_delete=models.CASCADE, verbose_name='Gestion')
     T_Tipo_Proyecto = models.ForeignKey(T_Tipo_Proyecto, on_delete=models.CASCADE, verbose_name='Tipo de Proyecto')
     T_Materia = models.ForeignKey(T_Materia, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Materia')
-    Fecha_Inicio_Subida = models.DateField(null=True, blank=True, verbose_name='Fecha de Inicio de Subida')
-    Fecha_Fin_Subida = models.DateField(null=True, blank=True, verbose_name='Fecha de Fin de Subida')
-
+     
     def clean(self):
         from django.core.exceptions import ValidationError
         if self.Fecha_Finalizacion < self.Fecha_Inicio:
             raise ValidationError('La fecha de finalización debe ser posterior a la fecha de inicio.')
-        if self.Fecha_Inicio_Subida and self.Fecha_Fin_Subida and self.Fecha_Fin_Subida < self.Fecha_Inicio_Subida:
-            raise ValidationError('La fecha de fin de subida debe ser posterior a la fecha de inicio de subida.')
-
+        
     def __str__(self):
         return self.S_Titulo
+    
+class GlobalSettings(models.Model):
+    habilitar_proyectos = models.BooleanField(default=True, verbose_name='Habilitar Proyectos')
+    fecha_inicio_habilitacion = models.DateField(null=True, blank=True, verbose_name='Fecha de Inicio de Habilitación')
+    fecha_fin_habilitacion = models.DateField(null=True, blank=True, verbose_name='Fecha de Fin de Habilitación')
+
+    def __str__(self):
+        return "Configuración Global"
+
+    def tiempo_restante(self):
+        hoy = date.today()
+        if self.fecha_fin_habilitacion and hoy <= self.fecha_fin_habilitacion:
+            return (self.fecha_fin_habilitacion - hoy).days
+        return None
   
     
 

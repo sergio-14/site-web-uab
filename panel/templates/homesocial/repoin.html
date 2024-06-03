@@ -30,19 +30,29 @@
     <h2 class="title text-center pt-4">PROYECTOS DE INVESTIGACIÓN E INTERRACIÓN SOCIAL</h2>
     <form method="GET" action="" id="filterForm">
         <div class=" row">
-            <div class="col p-2 m-2 stilo">
-                <h2 class="card-text">SELECCIONAR GESTION</h2>
+            <div class="col-1 m-2 d-flex justify-content-center align-items-center">
+                <a href="{% url 'hometrabajos' %}" class="p-2 stilo rounded-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-x-octagon-fill" viewBox="0 0 16 16">
+                        <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353zm-6.106 4.5L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="col-4 p-2 m-2 stilo">
+                <h2 class="card-text"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-intersect" viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2zm5 10v2a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2v5a2 2 0 0 1-2 2zm6-8V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2V6a2 2 0 0 1 2-2z"/>
+                  </svg> GESTION</h2>
                 <select name="T_Gestion" id="t_gestion" class="form-select" aria-label="Default select example" onchange="submitForm()">
-                    
                     {% for gestion in t_gestiones %}
                         <option value="{{ gestion.Id_Ges }}" {% if gestion.Id_Ges|stringformat:"s" == selected_t_gestion %}selected{% endif %}>{{ gestion.S_Gestion }}</option>
                     {% endfor %}
+                    
                 </select>
             </div>
             <div class="col p-2 m-2 stilo">
-                <h2 class="card-text">SELECCIONAR MATERIA</h2>
-                <select name="T_Semestre" id="t_semestre" class="form-select" aria-label="Default select example" onchange="submitForm()">
-                    
+                <h2 class="card-text"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-intersect" viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2zm5 10v2a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2v5a2 2 0 0 1-2 2zm6-8V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2V6a2 2 0 0 1 2-2z"/>
+                  </svg> SEMESTRE</h2>
+                <select name="T_Semestre" id="t_semestre" class="form-select " aria-label="Default select example" onchange="submitForm()">
                     {% for semestre in t_semestres %}
                         <option value="{{ semestre.Id_Semestre }}" {% if semestre.Id_Semestre|stringformat:"s" == selected_t_semestre %}selected{% endif %}>{{ semestre.S_Semestre }}</option>
                     {% endfor %}
@@ -121,7 +131,7 @@
                 </div>
                 <!-- Segunda Columna -->
                 <div class="col-md-6 p-4">
-                    <h3 class="">ASIGNATURA: {{ proyecto.T_Materia }}</h3>
+                    <h3 class="card-text">ASIGNATURA: {{ proyecto.T_Materia }}</h3>
                     <div class="stilo">
                         {% if proyecto.S_Imagen %}
                             <img src="{{ proyecto.S_Imagen.url }}" class="img-fluid p-3" id="imgsocial" alt="Imagen de ejemplo">
@@ -135,7 +145,7 @@
     {% endfor %}
     <br><br><br><br>
 {% else %}
-    <p>No se encontraron proyectos con los filtros seleccionados.</p>
+    <p class="textdate text-center pt-5">Debe Elegir un Filtro Seleccionando las Opciones .</p>
 {% endif %}
 </div><br><br><br><br>
 <script

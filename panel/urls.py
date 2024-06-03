@@ -31,6 +31,9 @@ urlpatterns = [
     
     
     #proyectos de interacion social
+    path('homesocial/proyecto_detail/', views.proyecto_detail, name='proyecto_detail'),
+    path('homesocial/listar_proyectos/', views.lista_proyectos, name='lista_proyectos'),
+    path('homesocial/global_settings/', views.global_settings_view, name='global_settings'),
     
 ]
 handler403 = handle_permission_denied

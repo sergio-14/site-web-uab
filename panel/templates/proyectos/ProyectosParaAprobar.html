@@ -27,8 +27,9 @@
             </div>
             <br>
              <!-- Formulario para aprobar/rechazar con espacio para agregar comentario -->
+            <p class="px-3 card-text">Comentar Proyecto</p>
             <div class="container">
-                <form method="POST" action="{% url 'ProyectosParaAprobar' %}">
+                <form method="POST"  action="{% url 'ProyectosParaAprobar' %}">
                     {% csrf_token %}
                     <input  type="hidden" name="proyecto_id" value="{{ proyecto.id }}">
                     <textarea class="comentari-field contdoc" name="comentario_texto" required></textarea>

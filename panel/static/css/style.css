@@ -2,6 +2,18 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+.font{
+    font-family: "Anton";
+    
+}
+.text-tareas{
+    
+    color: #c75818;
+    font-size: 18px;
+    background: #c2dfdf4f;
+}
+
 :root {
     --primary: #ffddaf;
     --secondary: #191C24;
@@ -262,8 +274,12 @@
     overflow: auto; /* Agregar barra de desplazamiento si el contenido es más grande que el contenedor */
     resize: vertical; /* Permitir redimensionar verticalmente */
     word-wrap: break-word; /* Permitir que las palabras largas se envuelvan automáticamente */
-    border: 1px solid #05262c;
+    border: 1px solid #fffdfc;
     color:#05262c;
+    border-radius: 8px;
+    background: #f3efef;
+    box-shadow:  6px 6px 5px #a7a6a6,
+             -6px -6px 5px #ffffff;
 }
 @media (max-width: 767px) {
     .imgperfil{

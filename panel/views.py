@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required,permission_required
 from django.shortcuts import render, redirect,get_object_or_404
 from django.urls import reverse
 from django.views import View
-from .forms import ProyectoForm, CommentForm, PersonaForm
+from .forms import ProyectoForm, CommentForm, PersonaForm, T_ProyectosForm, GlobalSettings, GlobalSettingsForm
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -35,15 +35,21 @@ def repoin(request):
     t_gestion_id = request.GET.get('T_Gestion')
     t_semestre_id = request.GET.get('T_Semestre')
     
-    listaproyectos = T_Proyectos.objects.all()
+    # Inicializar listaproyectos como vacío
+    listaproyectos = T_Proyectos.objects.none()
     
-    if t_gestion_id:
-        listaproyectos = listaproyectos.filter(T_Gestion_id=t_gestion_id)
+    if t_gestion_id or t_semestre_id:
+        listaproyectos = T_Proyectos.objects.all()
+        
+        if t_gestion_id:
+            listaproyectos = listaproyectos.filter(T_Gestion_id=t_gestion_id)
+        
+        if t_semestre_id:
+            listaproyectos = listaproyectos.filter(T_Materia__T_Semestre_id=t_semestre_id)
+        
+        listaproyectos = listaproyectos.order_by('Id_Proyect')  # Ordenar para garantizar el primer proyecto
     
-    if t_semestre_id:
-        listaproyectos = listaproyectos.filter(T_Materia__T_Semestre_id=t_semestre_id)
-    
-    listaproyectos = listaproyectos.order_by('Id_Proyect')  # Ordenar para garantizar el primer proyecto
+    # Obtener el primer proyecto si existe, de lo contrario None
     primer_proyecto = listaproyectos.first() if listaproyectos.exists() else None
     
     context = {
@@ -54,6 +60,7 @@ def repoin(request):
         'selected_t_gestion': t_gestion_id,
         'selected_t_semestre': t_semestre_id,
     }
+    
     return render(request, 'homesocial/repoin.html', context)
 
 
@@ -79,8 +86,6 @@ def signin(request):
             error_message = "Usuario y/o contraseña incorrectos."
             return render(request, 'signin.html', {'error_message': error_message})
     return render(request, 'signin.html')
-
-
 
 @login_required
 def dashboard(request):
@@ -200,9 +205,6 @@ def handle_permission_denied(request, exception):
     return render(request, '403.html', status=403)
 
 
-
-    
-
 @method_decorator(user_passes_test(lambda u: usuario_en_grupo(u, 'grupoestudiantes')), name='dispatch')
 class ProyectosParaAprobar(View):
     def get(self, request):
@@ -232,7 +234,6 @@ class ProyectosParaAprobar(View):
             messages.error(request, 'Hubo un error al procesar la solicitud.')
             return HttpResponseRedirect(request.path_info)
 
-
 class AprobarProyecto(View):
     def post(self, request, proyecto_id):
         proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
@@ -250,3 +251,47 @@ class RechazarProyecto(View):
         return HttpResponseRedirect(reverse('ProyectosParaAprobar'))
 
 
+from datetime import date
+#proyectos de interaccion social 
+def proyecto_detail(request):
+    settings = GlobalSettings.objects.first()
+    hoy = date.today()
+    habilitado = settings and (settings.fecha_inicio_habilitacion <= hoy <= settings.fecha_fin_habilitacion)
+    tiempo_restante = settings.tiempo_restante() if settings else None
+
+    if request.method == 'POST':
+        form = T_ProyectosForm(request.POST, request.FILES)
+        if habilitado and form.is_valid():
+            proyecto = form.save(commit=False)  # No guardar todavía la instancia del modelo
+            proyecto.S_persona = Persona.objects.get(user=request.user)  # Asignar la persona relacionada con el usuario autenticado
+            proyecto.save()  # Ahora guardar la instancia del modelo
+            return redirect('dashboard')  # Asegúrate de que 'dashboard' sea el nombre correcto de tu vista para el dashboard
+    else:
+        form = T_ProyectosForm()
+
+    return render(request, 'homesocial/proyecto_detail.html', {
+        'form': form,
+        'habilitado': habilitado,
+        'tiempo_restante': tiempo_restante,
+    })
+
+   
+def lista_proyectos(request):
+    proyectos = T_Proyectos.objects.all()
+    return render(request, 'homesocial/lista_proyectos.html', {'proyectos': proyectos})
+
+
+def global_settings_view(request):
+    settings = GlobalSettings.objects.first()
+    if not settings:
+        settings = GlobalSettings()
+
+    if request.method == 'POST':
+        form = GlobalSettingsForm(request.POST, instance=settings)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = GlobalSettingsForm(instance=settings)
+    
+    return render(request, 'homesocial/global_settings.html', {'form': form})

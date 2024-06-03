@@ -1,0 +1,38 @@
+{% extends 'Principal.html' %} 
+{% load crispy_forms_tags %} 
+{% block content %}
+<div class="container px-lg-5 ">
+    <div class="px-lg-5 font">
+        <h1 id=" letr" class="text-center pb-5">Agregar Nuevo Proyecto de Interacción Social</h1>
+        <p class="text-tareas text-end p-1" >
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z"/>
+                <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+              </svg> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+                <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+                <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
+              </svg> Tiene {{ tiempo_restante }} días restantes Implementar su Proyecto. 
+        </p>
+        <article>
+            <form id="pot" method="post" enctype="multipart/form-data">
+                {% csrf_token %} 
+                {{ form|crispy }} 
+                {% if habilitado %} 
+                {% if tiempo_restante is not None %}
+                {% endif %} 
+                {% else %}
+                <p>
+                    El sistema está deshabilitado para agregar proyectos en este momento.
+                </p>
+                {% endif %}
+                <br />
+                <a>
+                    <input name="" id="boton1" class="btn btn-success" type="submit" value="Enviar Informacion"/>
+                </a>
+                <a name="" id="boton1" class="btn btn-primary" href="{% url 'dashboard' %}" role="button" >Cancelar</a>
+            </form>
+            <br />
+        </article>        
+    </div>
+</div>
+{% endblock %}
