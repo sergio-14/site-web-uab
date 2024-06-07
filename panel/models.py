@@ -133,7 +133,7 @@ class T_Proyectos(models.Model):
 class GlobalSettings(models.Model):
     habilitar_proyectos = models.BooleanField(default=True, verbose_name='Habilitar Proyectos')
     fecha_inicio_habilitacion = models.DateField(null=True, blank=True, verbose_name='Fecha de Inicio de Habilitación')
-    fecha_fin_habilitacion = models.DateField(null=True, blank=True, verbose_name='Fecha de Fin de Habilitación')
+    fecha_fin_habilitacion = models.DateField(null=True, blank=True, verbose_name='Fecha Fin de Habilitación')
 
     def __str__(self):
         return "Configuración Global"

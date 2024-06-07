@@ -295,3 +295,21 @@ def global_settings_view(request):
         form = GlobalSettingsForm(instance=settings)
     
     return render(request, 'homesocial/global_settings.html', {'form': form})
+
+
+@login_required
+def proyectosin_so(request):
+    persona = request.user.persona
+    proyectos = T_Proyectos.objects.filter(S_persona=persona).order_by('-Id_Proyect')
+    
+    # Paginación para los proyectos, incluyendo el último proyecto
+    paginator = Paginator(proyectos, 1)  # Muestra 1 proyecto por página
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'persona': persona,
+        'page_obj': page_obj
+    }
+    return render(request, 'homesocial/proyectosin_so.html', context)

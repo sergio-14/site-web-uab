@@ -17,7 +17,7 @@
 
 .title{
     font-weight: 100;
-    font-size: 30px;
+    font-size: 40px;
     color: #083741;
     font-family:"Anton";
     font-style: normal;
@@ -35,6 +35,21 @@
     background: #f0f0f0;
     box-shadow:  9px 9px 9px #a6a6a6,
              -9px -9px 9px #ffffff;
+}
+.stilooo{
+    font-family: "Anton";
+    color: #0a4049;
+    border-radius: 15px;
+    background: #f5f4f4;
+    box-shadow:  9px 9px 9px #a6a6a6,
+             -9px -9px 9px #ffffff;
+}
+.stiloo{
+    border-radius: 15px;
+    background: #eeeded;
+    color: #4e55572f;
+    box-shadow: inset 12px 12px 24px #bebebe,
+            inset -12px -12px 24px #ffffff;
 }
 
 .contproyectos{
@@ -59,11 +74,29 @@
     font-family: "Anton";
 
 }
+.textmension{
+    font-size: 25px;
+    color: #0d4164;
+    font-family: "Anton";
+
+}
+
+.user-img {
+    width: 300px;
+    height: 150px;
+    border-radius:12px;
+    background:rgb(255, 255, 255);
+}
 
 #imgsocial{
     height: 400px;
     width:550px ;
     border-radius: 25px;
+}
+#imgmujersocial{
+    height: 530px;
+    border-radius: 8px;
+    opacity: 70%;
 }
 #imgdocente{
     height:70px;
@@ -74,4 +107,25 @@
     background: #4b2309;
     box-shadow:  9px 9px 9px #a6a6a6,
              -9px -9px 9px #ffffff;
+}
+
+.btnn{
+    font-family: "Anton";
+    text-decoration: none;
+    width: 170px;
+    color: #ac4616;
+    border-radius: 8px;
+    border: 1px solid rgb(255, 255, 255);
+    padding: 8px;
+    background: #f0f0f0;
+    box-shadow:  9px 9px 9px #a6a6a6,
+             -9px -9px 9px #ffffff;
+
+}
+.btnn:hover{
+    color: #ac4616;
+    background: #eeeded;
+    box-shadow: inset 12px 12px 24px #bebebe,
+            inset -12px -12px 24px #ffffff;
+
 }
