@@ -122,7 +122,9 @@ def signin(request):
     return render(request, 'signin.html')
 
 #editar datos persona
-@permission_required('seguimiento.can_view_custom_view')
+#@permission_required('seguimiento.can_view_custom_view')
+
+@login_required
 def editar_persona(request):
     # Obtener la persona asociada al usuario que inició sesión
     persona = get_object_or_404(Persona, user=request.user)
@@ -165,6 +167,7 @@ def enviar_mensaje(request):
 ################  vistas modalidad de graduacion  ##########################
 
 #vista agregar formulario alcanze de proyecto 
+@user_passes_test(lambda u: permiso_Estudiantes(u, 'Estudiantes')) 
 def agregar_proyecto(request):
     if request.method == 'POST':
         form = ProyectoForm(request.POST, request.FILES)
@@ -183,10 +186,11 @@ def agregar_proyecto(request):
             return redirect('dashboard')
     else:
         form = ProyectoForm()
-    return render(request, 'agregar_proyecto.html', {'form': form})
+    return render(request, 'proyectos/agregar_proyecto.html', {'form': form})
 
 #vista del formulario de alcanze de proyecto 
 @login_required
+@user_passes_test(lambda u: permiso_Estudiantes(u, 'Estudiantes')) 
 def vista_proyecto(request):
     # Obtener todos los proyectos asociados al usuario en sesión
     proyectos_usuario = Proyecto.objects.filter(persona=request.user.persona).order_by('-fecha_creacion')
@@ -264,6 +268,7 @@ class RechazarProyecto(View):
 #################  proyectos de interaccion social docentes   ######################################
 
 #formulario de agregacion docentes I.S.
+@user_passes_test(lambda u: permiso_Docentes(u, 'Docentes')) 
 def proyecto_detail(request):
     settings = GlobalSettings.objects.first()
     hoy = date.today()
@@ -305,6 +310,7 @@ def global_settings_view(request):
 
 #vista del proyecto I.S. para docentes
 @login_required
+@user_passes_test(lambda u: permiso_Docentes(u, 'Docentes')) 
 def proyectosin_so(request):
     persona = request.user.persona
     proyectos = T_Proyectos.objects.filter(S_persona=persona).order_by('-Id_Proyect')
