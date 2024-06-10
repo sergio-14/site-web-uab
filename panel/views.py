@@ -11,7 +11,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.text import slugify
 from django.core.paginator import Paginator
 from django.contrib import messages
-from .models import Proyecto, Commentario, Persona, T_Proyectos, T_Gestion, T_Semestre
+from .models import Proyecto, Commentario, Persona, T_Proyectos, T_Gestion, T_Semestre, T_Materia
 from panel.models import Proyecto
 from django.contrib.auth.models import User
 
@@ -291,6 +291,35 @@ def proyecto_detail(request):
         'tiempo_restante': tiempo_restante,
     })
 
+#clasificacion de enviados y no enviados
+@user_passes_test(lambda u: permiso_I_S(u, 'admISD')) 
+def clasificar_proyectos(request):
+    gestion_id = request.GET.get('gestion')
+    materias = T_Materia.objects.all()
+    gestiones = T_Gestion.objects.all()
+
+    materias_con_proyectos = []
+    materias_sin_proyectos = []
+
+    for materia in materias:
+        if gestion_id:
+            proyectos = T_Proyectos.objects.filter(T_Materia=materia, T_Gestion_id=gestion_id)
+        else:
+            proyectos = T_Proyectos.objects.filter(T_Materia=materia)
+
+        if proyectos.exists():
+            materias_con_proyectos.append(materia)
+        else:
+            materias_sin_proyectos.append(materia)
+    
+    return render(request, 'homesocial/clasificar_proyectos.html', {
+        'materias_con_proyectos': materias_con_proyectos,
+        'materias_sin_proyectos': materias_sin_proyectos,
+        'gestiones': gestiones,
+        'selected_gestion': gestion_id
+    })
+    
+    
 #asignacion de fechas para subir trabajos
 @user_passes_test(lambda u: permiso_I_S(u, 'admISD')) 
 def global_settings_view(request):

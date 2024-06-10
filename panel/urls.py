@@ -34,6 +34,7 @@ urlpatterns = [
     
     #proyectos de interacion social
     path('homesocial/proyecto_detail/', views.proyecto_detail, name='proyecto_detail'),
+    path('homesocial/clasificar_proyectos/', views.clasificar_proyectos, name='clasificar_proyectos'),
     path('homesocial/global_settings/', views.global_settings_view, name='global_settings'),
     path('homesocial/proyectosin_so/', views.proyectosin_so, name='proyectosin_so'),
     
